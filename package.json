@@ -11,7 +11,9 @@
   "dependencies": {
     "async": "^2.6.0",
     "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
     "mongoose": "^5.0.17",
-    "superagent": "^3.8.3"
+    "superagent": "^3.8.3",
+    "supervisor": "^0.12.0"
   }
 }
