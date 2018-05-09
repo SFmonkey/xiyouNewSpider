@@ -38,7 +38,7 @@ superagent
                     // 就可以得到一个实现了 jquery 接口的变量，我们习惯性地将它命名为 `$`
                     // 剩下就都是 jquery 的内容了
                     var $ = cheerio.load(res.text);
-                    var title = $('#nrys div:first-child').html()
+                    var title = $('#nrys div:first-child').text()
                     var article = transforImg($($('.nrzwys')[0]).html());
                     mongo.add({seq:idx,title:title,article: article});
             })
