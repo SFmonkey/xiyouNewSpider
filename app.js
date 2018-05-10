@@ -25,4 +25,13 @@ app.get('/news',function (req, res) {
         res.send({data:data})
     });
 })
+
+app.get('/article',function (req, res) {
+    var data = [];
+    var query = req.query.seq;
+    mongo.model.findOne({'seq':query},function(i,e){
+        res.send({data:e.article})
+    });
+})
+
 app.listen(3000)

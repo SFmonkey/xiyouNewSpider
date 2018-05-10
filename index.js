@@ -39,7 +39,7 @@ superagent
                     // 剩下就都是 jquery 的内容了
                     var $ = cheerio.load(res.text);
                     var title = $('#nrys div:first-child').text()
-                    var article = transforImg($($('.nrzwys')[0]).html());
+                    var article = transforImg($($('.nrzwys')[0]).text());
                     mongo.add({seq:idx,title:title,article: article});
             })
         })
