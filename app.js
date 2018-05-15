@@ -3,6 +3,9 @@ const app = express()
 const mongo = require("./mongo");
 const login = require("./login");
 const getImg = require("./img");
+const getScore = require("./score");
+const getSchedule = require("./schedule");
+// const getAllScore = require("./all_score")
 
 // var a = mongo.find();
 
@@ -54,6 +57,59 @@ app.get('/img', function(req, res){
 	getImg(username, name,session,function(result){
         res.send(result)
     })
+});
+
+app.get('/score', function(req, res){
+    var username = req.query.username;
+    var name = req.query.name;
+	var session = req.query.session;
+	getScore(username,name,session,function(result){
+        res.send(result)
+    })
+});
+
+app.get('/scoreAll', function(req, res){
+    var username = req.query.username;
+	mongo.mongooseModel_score.find({username:username},function(i,e){
+        res.send({data:e})
+    });
+});
+
+app.get('/schedule', function(req, res){
+    var username = req.query.username;
+    var name = req.query.name;
+    var session = req.query.session;
+	getSchedule(username,name,session,function(result){
+        res.send(result)
+    })
+});
+
+app.get('/publish', function(req, res){
+    var nickname = req.query.nickname;
+    var content = req.query.content;
+	mongo.add_schedule({nickname:nickname, content:content},function(){
+    });
+    res.send('success')
+});
+
+app.get('/write', function(req, res){
+    var data = [];
+    var nickname = req.query.nickname;
+    var content = req.query.content;
+	mongo.mongooseModel_schedule.find({},function(i,e){
+        e.forEach(function(v){
+            data.unshift({nickname:v.nickname,content:v.content})
+        })
+        res.send({data:data})
+    });
+});
+
+app.get('/flappy/send', function(req, res){
+    var name = req.query.name;
+    var score = req.query.score;
+	mongo.add_flyBird({name:name, score:score},function(){
+    });
+    res.send('success')
 });
 
 app.listen(3000)
